@@ -1,0 +1,10 @@
+ruby '2.3.5'
+source 'https://rubygems.org'
+
+gem 'activesupport'
+gem 'colorize'
+gem 'dotenv'
+gem 'httparty'
+gem 'pry'
+gem 'redis'
+gem 'sinatra'

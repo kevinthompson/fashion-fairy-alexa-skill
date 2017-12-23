@@ -1,0 +1,2 @@
+module FashionFairy
+end
