@@ -17,10 +17,18 @@ module FashionFairy
         @request = request
       end
 
+      def response
+        FashionFairy::Alexa::Response.new
+      end
+
       private
 
       def api
         request.api
+      end
+
+      def location
+        request.location
       end
 
       def date_range

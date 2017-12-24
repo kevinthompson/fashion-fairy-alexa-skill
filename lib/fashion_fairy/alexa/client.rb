@@ -12,11 +12,11 @@ module FashionFairy
         @endpoint = endpoint
       end
 
-      def get(path, body = {})
+      def get(path, body = nil)
         request(:get, path, body)
       end
 
-      def post(path, body = {})
+      def post(path, body = nil)
         request(:post, path, body)
       end
 
