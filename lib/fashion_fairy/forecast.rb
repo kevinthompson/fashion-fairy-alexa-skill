@@ -4,18 +4,24 @@ require_relative 'forecast/period'
 
 module FashionFairy
   class Forecast
-    def self.for_location(location)
-      new(data: FashionFairy::Weather.new(location: location).forecast)
-    end
+    attr_reader :location
 
-    def initialize(data:)
-      @data = data
+    def initialize(location:)
+      @location = location
+      @data = FashionFairy::Weather.new(location: location).forecast
     end
 
     def periods
-      data.dig('properties', 'periods').map do |period|
-        Period.new(data: period)
+      @periods ||= data.dig('properties', 'periods').map do |period|
+        FashionFairy::Forecast::Period.new(data: period)
       end
+    end
+
+    def to_s
+      %(
+        #{periods.first.name} in #{location.city} it's
+        #{periods.first.temperature} degrees and #{periods.first.description}.
+      )
     end
 
     private

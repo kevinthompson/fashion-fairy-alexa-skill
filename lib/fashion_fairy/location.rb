@@ -1,4 +1,5 @@
 require 'csv'
+require 'httparty'
 
 module FashionFairy
   class Location
@@ -20,6 +21,16 @@ module FashionFairy
     def initialize(attributes)
       attributes.each do |key, value|
         instance_variable_set("@#{key}", value)
+      end
+    end
+
+    def time_zone
+      @time_zone ||= begin
+        url = "https://maps.googleapis.com/maps/api/timezone/json"
+        url << "?location=#{latitude},#{longitude}"
+        url << "&timestamp=#{Time.now.to_i}"
+        url << "&key=#{ENV['GOOGLE_MAPS_API_KEY']}"
+        HTTParty.get(url).parsed_response['timeZoneId']
       end
     end
   end

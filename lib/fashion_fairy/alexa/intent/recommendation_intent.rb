@@ -1,6 +1,8 @@
 require_relative '../intent'
 require_relative '../response'
 require_relative '../../forecast'
+require_relative '../../greeting'
+require_relative '../../recommendation'
 
 module FashionFairy
   module Alexa
@@ -11,11 +13,9 @@ module FashionFairy
             text: %(
               <speak>
                 <audio src="https://23ef47e9.ngrok.io/audio/appear.mp3" />
-                Hello there! #{period.name} in #{location.city} it's
-                #{period.temperature} degrees and #{period.description}.
-                Sounds like a beautiful day, but a bit chilly.
-                I think you should wear warm clothes, like pants, a sweater, and
-                maybe a nice hat.
+                #{greeting}
+                #{forecast}
+                #{recommendation}
                 <audio src="https://23ef47e9.ngrok.io/audio/dissapear.mp3" />
               </speak>
             )
@@ -24,12 +24,16 @@ module FashionFairy
 
         private
 
-        def forecast
-          @forecast ||= FashionFairy::Forecast.for_location(location)
+        def greeting
+          @greeting ||= FashionFairy::Greeting.new(location: location)
         end
 
-        def period
-          @period ||= forecast.periods.first
+        def forecast
+          @forecast ||= FashionFairy::Forecast.new(location: location)
+        end
+
+        def recommendation
+          @recommendation ||= FashionFairy::Recommendation.new(forecast: forecast)
         end
       end
     end
