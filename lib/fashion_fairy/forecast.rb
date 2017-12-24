@@ -1,11 +1,19 @@
+require 'json'
+require_relative 'weather'
+require_relative 'forecast/period'
+
 module FashionFairy
   class Forecast
+    def self.for_location(location)
+      new(data: FashionFairy::Weather.new(location: location).forecast)
+    end
+
     def initialize(data:)
       @data = data
     end
 
     def periods
-      data.dig('properties', 'periods').each do |period|
+      data.dig('properties', 'periods').map do |period|
         Period.new(data: period)
       end
     end
@@ -13,23 +21,5 @@ module FashionFairy
     private
 
     attr_reader :data
-
-    class Period
-      def initialize(data:)
-        @data = data
-      end
-
-      def name
-        data.dig('name')
-      end
-
-      def
-
-      end
-
-      private
-
-      attr_reader :data
-    end
   end
 end
