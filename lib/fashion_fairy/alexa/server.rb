@@ -6,6 +6,9 @@ require_relative 'request'
 module FashionFairy
   module Alexa
     class Server < Sinatra::Base
+      set :static, true
+      set :public_folder, Proc.new { File.join(File.dirname(__FILE__), '../../../public') }
+
       configure do
         uri = URI.parse(ENV["REDISCLOUD_URL"])
         $redis = Redis.new(
