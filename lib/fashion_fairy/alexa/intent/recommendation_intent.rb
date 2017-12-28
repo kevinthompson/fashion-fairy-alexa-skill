@@ -15,13 +15,13 @@ module FashionFairy
             FashionFairy::Alexa::Response.new(
               text: %(
                 <speak>
-                  <audio src="https://23ef47e9.ngrok.io/audio/appear.mp3" />
+                  <audio src="#{ENV['HOST']}/audio/appear.mp3" />
                   #{greeting}
                   #{forecast}
                   #{comment}
                   #{recommendation}
                   #{farewell}
-                  <audio src="https://23ef47e9.ngrok.io/audio/dissapear.mp3" />
+                  <audio src="#{ENV['HOST']}/audio/dissapear.mp3" />
                 </speak>
               )
             )
