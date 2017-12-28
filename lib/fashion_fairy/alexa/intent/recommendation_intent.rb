@@ -12,10 +12,15 @@ module FashionFairy
       class RecommendationIntent < Intent
         def response
           if location
+            speak(%(
+              <speak>
+                <audio src="#{ENV['HOST']}/audio/appear.mp3" />
+              </speak>
+            ))
+
             FashionFairy::Alexa::Response.new(
               text: %(
                 <speak>
-                  <audio src="#{ENV['HOST']}/audio/appear.mp3" />
                   #{greeting}
                   #{forecast}
                   #{comment}
