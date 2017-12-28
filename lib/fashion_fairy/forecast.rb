@@ -35,13 +35,7 @@ module FashionFairy
     end
 
     def upcoming_period
-      @upcoming_period ||= FashionFairy::Forecast::Period.new(
-        data: max_offset_hour
-      )
-    end
-
-    def max_offset_hour
-      hours.max do |a,b|
+      @upcoming_period ||= hours.max do |a,b|
         (current_period.temperature - a.temperature).abs <=>
           (current_period.temperature - b.temperature).abs
       end
