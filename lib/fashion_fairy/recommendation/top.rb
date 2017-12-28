@@ -1,22 +1,18 @@
+require_relative 'article'
+
 module FashionFairy
   class Recommendation
-    class Top
-      def initialize(forecast:)
-        @forecast = forecast
-      end
-
+    class Top < Article
       def to_s
         case forecast.temperature
-        when -Float::INFINITY..74
+        when -Float::INFINITY..65
           'a long-sleeve shirt'
-        when 75..Float::INFINITY
+        when 66..85
           'a t-shirt'
+        when 86..Float::INFINITY
+          'a tank top'
         end
       end
-
-      private
-
-      attr_reader :forecast
     end
   end
 end
