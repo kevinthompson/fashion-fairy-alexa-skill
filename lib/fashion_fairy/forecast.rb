@@ -10,10 +10,6 @@ module FashionFairy
       @location = location
     end
 
-    def name
-      upcoming_period.name
-    end
-
     def temperature
       upcoming_period.temperature
     end
@@ -25,7 +21,7 @@ module FashionFairy
     def to_s
       %(
         Right now in #{location.city}, #{location.state} it's
-        #{current_period.temperature} degrees. #{name} it's going to be
+        #{current_period.temperature} degrees. Later it's going to be
         #{temperature} degrees and #{description}.
       )
     end
@@ -40,22 +36,21 @@ module FashionFairy
 
     def upcoming_period
       @upcoming_period ||= FashionFairy::Forecast::Period.new(
-        data: periodically.dig('properties', 'periods').first
+        data: max_offset_hour
       )
     end
 
-    def hours
-      @hours ||= hourly.dig('properties', 'periods').map do |period|
-        FashionFairy::Forecast::Period.new(data: period)
+    def max_offset_hour
+      hours.max do |a,b|
+        (current_period.temperature - a.temperature).abs <=>
+          (current_period.temperature - b.temperature).abs
       end
     end
 
-    def periodically
-      @periodically ||= weather.forecast
-    end
-
-    def hourly
-      @hourly ||= weather.hourly
+    def hours
+      @hours ||= weather.hourly.dig('properties', 'periods').map do |period|
+        FashionFairy::Forecast::Period.new(data: period)
+      end
     end
 
     def weather
