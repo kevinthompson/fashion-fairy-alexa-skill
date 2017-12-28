@@ -22,9 +22,9 @@ module FashionFairy
 
     def temperate
       case forecast.temperature
-      when -Float::INFINITY..68
+      when -Float::INFINITY..74
         'warm'
-      when 69..Float::INFINITY
+      when 75..Float::INFINITY
         'cool'
       end
     end
