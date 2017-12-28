@@ -15,13 +15,13 @@ module FashionFairy
             speak(%(
               <speak>
                 <audio src="#{ENV['HOST']}/audio/appear.mp3" />
+                #{greeting}
               </speak>
             ))
 
             FashionFairy::Alexa::Response.new(
               text: %(
                 <speak>
-                  #{greeting}
                   #{forecast}
                   #{comment}
                   #{recommendation}
