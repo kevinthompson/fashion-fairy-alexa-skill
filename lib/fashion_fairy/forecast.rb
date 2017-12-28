@@ -24,7 +24,7 @@ module FashionFairy
 
     def to_s
       %(
-        #{name} in #{location.city} it's
+        #{name} in #{location.city}, #{location.state} it's
         #{temperature} degrees and #{description}.
         #{upcoming_forecast}
       )

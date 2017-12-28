@@ -8,9 +8,9 @@ module FashionFairy
       def to_s
         case forecast.temperature
         when -Float::INFINITY..74
-          'long-sleeve shirt'
+          'a long-sleeve shirt'
         when 75..Float::INFINITY
-          't-shirt'
+          'a t-shirt'
         end
       end
 
