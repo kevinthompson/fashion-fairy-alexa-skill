@@ -11,22 +11,22 @@ module FashionFairy
     end
 
     def name
-      current_period.name
+      upcoming_period.name
     end
 
     def temperature
-      current_period.temperature
+      upcoming_period.temperature
     end
 
     def description
-      current_period.description
+      upcoming_period.description
     end
 
     def to_s
       %(
-        #{name} in #{location.city}, #{location.state} it's
+        Right now in #{location.city}, #{location.state} it's
+        #{current_period.temperature} degrees. #{name} it's going to be
         #{temperature} degrees and #{description}.
-        #{upcoming_forecast}
       )
     end
 
@@ -34,31 +34,14 @@ module FashionFairy
 
     attr_reader :data
 
-    def upcoming_forecast
-      if current_period.description[/Night/i].nil?
-        nil
-      elsif upcoming_period.temperature != current_period.temperature
-        if upcoming_period.description != current_period.description
-          %(
-            Later it will be #{upcoming_period.temperature} degrees
-            and #{upcoming_period.description}.
-          )
-        else
-          %(Later it will be #{upcoming_period.temperature} degrees.)
-        end
-      elsif upcoming_period.description != current_period.description
-        %(Later it will be #{upcoming_period.description}.)
-      end
-    end
-
     def current_period
-      @current_period ||= FashionFairy::Forecast::Period.new(
-        data: semi_daily.dig('properties', 'periods').first
-      )
+      @current_period ||= hours.first
     end
 
     def upcoming_period
-      hours[3]
+      @upcoming_period ||= FashionFairy::Forecast::Period.new(
+        data: periodically.dig('properties', 'periods').first
+      )
     end
 
     def hours
@@ -67,8 +50,8 @@ module FashionFairy
       end
     end
 
-    def semi_daily
-      @semi_daily ||= weather.forecast
+    def periodically
+      @periodically ||= weather.forecast
     end
 
     def hourly
