@@ -41,8 +41,14 @@ module FashionFairy
       end
     end
 
+    def todays_hours
+      weather.hourly.dig('properties', 'periods').select do |period|
+        Date.parse(period['startTime']) == Date.today
+      end
+    end
+
     def hours
-      @hours ||= weather.hourly.dig('properties', 'periods').map do |period|
+      @hours ||= todays_hours.map do |period|
         FashionFairy::Forecast::Period.new(data: period)
       end
     end

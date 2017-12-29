@@ -9,6 +9,10 @@ module FashionFairy
         data.dig('name')
       end
 
+      def starts_at
+        data.dig('startTime')
+      end
+
       def temperature
         data.dig('temperature')
       end
