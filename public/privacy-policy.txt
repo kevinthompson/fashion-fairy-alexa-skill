@@ -1,0 +1,3 @@
+Fashion Fairy does not collect any user data. We only use the zip code of your
+Alexa device in order to find current and upcoming weather conditions in your
+area in order to make the most appropriate clothing recommendation.
