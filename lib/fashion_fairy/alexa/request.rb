@@ -22,16 +22,26 @@ module FashionFairy
       end
 
       def response
-        if zip_code
-          if location
-            scoped_to_time_zone(location.time_zone) do
-              intent.response
+        if valid_request?
+          if zip_code
+            if location
+              scoped_to_time_zone(location.time_zone) do
+                intent.response
+              end
+            else
+              FashionFairy::Alexa::Response.new(
+                text: %(
+                  I'm sorry, but I can't seem to figure out where you're at.
+                  If you try again in a little bit I might be able to find you.
+                )
+              )
             end
           else
             FashionFairy::Alexa::Response.new(
               text: %(
-                I'm sorry, but I can't seem to figure out where you're at.
-                If you try again in a little bit I might be able to find you.
+                I can't seem to see where you're at.
+                Please make sure you've allowed me to see your location
+                in the Alexa.
               )
             )
           end
@@ -44,7 +54,6 @@ module FashionFairy
             )
           )
         end
-      end
 
       def location
         FashionFairy::Location.from_zip_code(zip_code)
@@ -71,6 +80,10 @@ module FashionFairy
           access_token: data.dig('context', 'System', 'apiAccessToken'),
           endpoint: data.dig('context', 'System', 'apiEndpoint')
         )
+      end
+
+      def valid?
+        data.dig('session', 'application', 'applicationId')
       end
 
       private

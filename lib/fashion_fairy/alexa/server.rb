@@ -20,7 +20,12 @@ module FashionFairy
 
       post '/' do
         alexa_request = FashionFairy::Alexa::Request.new(request)
-        alexa_request.response.to_json
+
+        if alexa_request.valid?
+          alexa_request.response.to_json
+        else
+          halt 403
+        end
       end
 
       run! if __FILE__ == $0
