@@ -83,7 +83,7 @@ module FashionFairy
       end
 
       def valid?
-        data.dig('session', 'application', 'applicationId') == ENV['AMAZON_SKILL_ID']
+        data.dig('session', 'application', 'applicationId') == ENV['ALEXA_SKILL_ID']
       end
 
       private
