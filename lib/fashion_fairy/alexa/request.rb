@@ -1,4 +1,5 @@
 require 'active_support/all'
+require 'alexa_verifier'
 require 'json'
 require_relative 'client'
 require_relative 'intent'
@@ -13,8 +14,8 @@ module FashionFairy
       INTENT_REQUEST_TYPE = 'IntentRequest'.freeze
       SLOT_SUCCESS_MATCH = 'ER_SUCCESS_MATCH'.freeze
 
-      def initialize(data)
-        @data = JSON.parse(data.body.read)
+      def initialize(request)
+        @request = request
       end
 
       def id
@@ -74,18 +75,26 @@ module FashionFairy
       end
 
       def valid?
-        data.dig('session', 'application', 'applicationId') == ENV['ALEXA_SKILL_ID']
+        AlexaVerifier.valid?(request) && application_id == ENV['ALEXA_SKILL_ID']
       end
 
       private
 
-      attr_reader :data
+      attr_reader :request
+
+      def data
+        @data ||= JSON.parse(request.body.read)
+      end
 
       def zip_code
         @zip_code ||= begin
           response = api.get("/v1/devices/#{device_id}/settings/address/countryAndPostalCode")
           response.success? && JSON.parse(response.body)['postalCode']
         end
+      end
+
+      def application_id
+        data.dig('session', 'application', 'applicationId')
       end
 
       def device_id

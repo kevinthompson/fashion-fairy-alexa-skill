@@ -1,7 +1,7 @@
-require 'alexa_verifier'
 require 'pry'
 require 'redis'
 require 'sinatra/base'
+require 'uri'
 require_relative 'request'
 
 module FashionFairy
@@ -20,7 +20,7 @@ module FashionFairy
       end
 
       post '/' do
-        if AlexaVerifier.valid?(request) && alexa_request.valid?
+        if alexa_request.valid?
           alexa_request.response.to_json
         else
           halt 403
