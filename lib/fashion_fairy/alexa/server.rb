@@ -1,3 +1,4 @@
+require 'alexa_verifier'
 require 'pry'
 require 'redis'
 require 'sinatra/base'
@@ -19,13 +20,15 @@ module FashionFairy
       end
 
       post '/' do
-        alexa_request = FashionFairy::Alexa::Request.new(request)
-
-        if alexa_request.valid?
+        if AlexaVerifier.valid?(request) && alexa_request.valid?
           alexa_request.response.to_json
         else
           halt 403
         end
+      end
+
+      def alexa_request
+        @alexa_request ||= FashionFairy::Alexa::Request.new(request)
       end
 
       run! if __FILE__ == $0

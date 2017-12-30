@@ -2,6 +2,7 @@ ruby '2.3.5'
 source 'https://rubygems.org'
 
 gem 'activesupport'
+gem 'alexa_verifier'
 gem 'colorize'
 gem 'dotenv'
 gem 'httparty'
