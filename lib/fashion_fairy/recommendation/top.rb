@@ -4,7 +4,7 @@ module FashionFairy
   class Recommendation
     class Top < Article
       def to_s
-        case forecast.temperature
+        case forecast.current.temperature
         when -Float::INFINITY..65
           'a long-sleeve shirt'
         when 66..85

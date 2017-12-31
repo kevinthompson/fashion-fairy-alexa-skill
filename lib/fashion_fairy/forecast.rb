@@ -10,19 +10,22 @@ module FashionFairy
       @location = location
     end
 
-    def temperature
-      upcoming_period.temperature
+    def current
+      @current ||= hours.first
     end
 
-    def description
-      upcoming_period.description
+    def upcoming
+      @upcoming ||= max_offset_hour || current
     end
 
     def to_s
       %(
         Right now in #{location.city}, #{location.state} it's
-        #{current_period.temperature} degrees. Later it's going to be
-        #{temperature} degrees and #{description}.
+        #{current.temperature} degrees and #{current.description}.
+        #{upcoming == current ? nil : %(
+          Later it's going to be #{upcoming.temperature} degrees
+          and #{upcoming.description}.
+        )}
       )
     end
 
@@ -30,25 +33,20 @@ module FashionFairy
 
     attr_reader :data
 
-    def current_period
-      @current_period ||= hours.first
-    end
-
-    def upcoming_period
-      @upcoming_period ||= hours.max do |a,b|
-        (current_period.temperature - a.temperature).abs <=>
-          (current_period.temperature - b.temperature).abs
+    def max_offset_hour
+      daytime_hours.max_by do |hour|
+        (current.temperature - hour.temperature).abs
       end
     end
 
-    def todays_hours
-      weather.hourly.dig('properties', 'periods').select do |period|
-        Date.parse(period['startTime']) == Date.today
-      end
+    def daytime_hours
+      now = Time.now
+      limit = Time.new(now.year, now.month, now.day, 20)
+      hours.select { |hour| hour.starts_at < limit }
     end
 
     def hours
-      @hours ||= todays_hours.map do |period|
+      @hours ||= weather.hourly.dig('properties', 'periods').map do |period|
         FashionFairy::Forecast::Period.new(data: period)
       end
     end

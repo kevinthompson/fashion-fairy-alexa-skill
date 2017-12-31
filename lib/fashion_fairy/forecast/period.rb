@@ -10,15 +10,19 @@ module FashionFairy
       end
 
       def starts_at
-        data.dig('startTime')
+        Time.parse(data.dig('startTime'))
       end
 
       def temperature
-        data.dig('temperature')
+        data.dig('temperature').to_i
       end
 
       def description
         data.dig('shortForecast')
+      end
+
+      def rain?
+        !description[/rain/i].nil?
       end
 
       private

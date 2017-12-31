@@ -21,7 +21,7 @@ module FashionFairy
     attr_reader :forecast
 
     def temperate
-      case forecast.temperature
+      case forecast.current.temperature
       when -Float::INFINITY..74
         'warm'
       when 75..Float::INFINITY

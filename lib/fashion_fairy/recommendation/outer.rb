@@ -4,7 +4,7 @@ module FashionFairy
   class Recommendation
     class Outer < Article
       def to_s
-        case forecast.temperature
+        case forecast.current.temperature
         when -Float::INFINITY..65
           'a coat'
         when 66..75
