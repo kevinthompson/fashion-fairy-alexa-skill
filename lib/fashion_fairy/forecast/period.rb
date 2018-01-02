@@ -25,6 +25,11 @@ module FashionFairy
         !description[/rain/i].nil?
       end
 
+      def ==(other)
+        other.description == description ||
+          (other.temperatrure - temperature).abs < 5
+      end
+
       private
 
       attr_reader :data
