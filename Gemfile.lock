@@ -25,7 +25,6 @@ GEM
     rack (2.0.3)
     rack-protection (2.0.0)
       rack
-    redis (4.0.1)
     sinatra (2.0.0)
       mustermann (~> 1.0)
       rack (~> 2.0)
@@ -46,7 +45,6 @@ DEPENDENCIES
   dotenv
   httparty
   pry
-  redis
   sinatra
 
 RUBY VERSION
