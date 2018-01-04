@@ -23,8 +23,8 @@ module FashionFairy
       end
 
       def response
-        if zip_code
-          if location
+        if permission_granted?
+          if location_available?
             scoped_to_time_zone(location.time_zone) do
               intent.response
             end
@@ -39,10 +39,15 @@ module FashionFairy
         else
           FashionFairy::Alexa::Response.new(
             text: %(
-              I can't seem to see where you're at.
-              Please make sure you've allowed me to see your location
-              in the Alexa.
-            )
+              Before I can find your zip code, you'll need to grant me
+              permission in your Alexa app.
+            ),
+            card: {
+              type: "AskForPermissionsConsent",
+              permissions: [
+                "read::alexa:device:all:address"
+              ]
+            }
           )
         end
       end
@@ -69,8 +74,8 @@ module FashionFairy
 
       def api
         @api ||= FashionFairy::Alexa::Client.new(
-          access_token: data.dig('context', 'System', 'apiAccessToken'),
-          endpoint: data.dig('context', 'System', 'apiEndpoint')
+          access_token: access_token,
+          endpoint: endpoint
         )
       end
 
@@ -80,10 +85,30 @@ module FashionFairy
 
       private
 
+      def permission_granted?
+        endpoint && access_token && zip_code
+      rescue
+        false
+      end
+
+      def location_available?
+        location.present?
+      rescue
+        false
+      end
+
       attr_reader :request
 
       def data
         @data ||= JSON.parse(request.body.read)
+      end
+
+      def access_token
+        data.dig('context', 'System', 'apiAccessToken')
+      end
+
+      def endpoint
+        data.dig('context', 'System', 'apiEndpoint')
       end
 
       def zip_code
