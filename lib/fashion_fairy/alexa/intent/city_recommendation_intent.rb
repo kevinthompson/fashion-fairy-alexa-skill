@@ -8,7 +8,7 @@ module FashionFairy
         private
 
         def location
-          if request.slot('state')
+          if state
             FashionFairy::Location.from_city_state(city, state, origin: super)
           else
             FashionFairy::Location.from_city(city, origin: super)
@@ -21,8 +21,8 @@ module FashionFairy
 
         def state
           @state ||= begin
-            state = FashionFairy::Location.states.find({}) do |row|
-              row['state'].downcase == request.slot('state').downcase
+            state = FashionFairy::Location.states.find(-> { {} }) do |row|
+              row['state'].downcase == request.slot('state').to_s.downcase
             end
             state['abbreviation']
           end
