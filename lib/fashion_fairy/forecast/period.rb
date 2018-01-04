@@ -27,7 +27,7 @@ module FashionFairy
 
       def ==(other)
         other.description == description ||
-          (other.temperatrure - temperature).abs < 5
+          (other.temperature - temperature).abs < 5
       end
 
       private
