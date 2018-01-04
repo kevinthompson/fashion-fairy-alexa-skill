@@ -49,7 +49,8 @@ module FashionFairy
       end
 
       def location
-        FashionFairy::Location.from_zip_code(zip_code)
+        FashionFairy::Location.from_zip_code(zip_code) ||
+          FashionFairy::Location.from_zip_code(98109)
       end
 
       def session(key)

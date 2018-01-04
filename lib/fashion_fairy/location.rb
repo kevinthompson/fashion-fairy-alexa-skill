@@ -21,7 +21,7 @@ module FashionFairy
     end
 
     def self.from_zip_code(zip_code)
-      row = data.find { |r| r['zip_code'] == zip_code.to_s.rjust(5, '0') }
+      row = data.find { |r| r['zip_code'] == zip_code.to_s.rjust(5, '0')[0...5] }
       new(row) if row
     end
 
