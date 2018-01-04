@@ -1,6 +1,7 @@
 require 'active_support/all'
 require 'alexa_verifier'
 require 'json'
+require_relative 'card/ask_for_permissions_consent_card'
 require_relative 'client'
 require_relative 'intent'
 require_relative '../location'
@@ -42,12 +43,7 @@ module FashionFairy
               Before I can find your zip code, you'll need to grant me
               permission in your Alexa app.
             ),
-            card: {
-              type: "AskForPermissionsConsent",
-              permissions: [
-                "read::alexa:device:all:address"
-              ]
-            }
+            card: FashionFairy::Alexa::Card::AskForPermissionsConsentCard.new
           )
         end
       end
