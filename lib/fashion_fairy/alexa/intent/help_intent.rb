@@ -8,9 +8,9 @@ module FashionFairy
         def response
           FashionFairy::Alexa::Response.new(
             text: %(
-              I can help you pick what to wear today, or let you know if it's a
-              good day for something you want to wear. All you have to do is ask!
-            )
+              I can help you pick what to wear today. All you have to do is say, "what should I wear"!
+            ),
+            should_end_session: false
           )
         end
       end
