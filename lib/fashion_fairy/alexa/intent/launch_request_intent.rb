@@ -7,7 +7,12 @@ module FashionFairy
       class LaunchRequestIntent < Intent
         def response
           FashionFairy::Alexa::Response.new(
-            text: %(Hi, I'm the fashion fairy! How can I help you today?),
+            text: %(
+              <speak>
+                <audio src="#{ENV['HOST']}/audio/appear.mp3" />
+                Hi, I'm the fashion fairy! How can I help you today?
+              </speak>
+            ),
             should_end_session: false
           )
         end
