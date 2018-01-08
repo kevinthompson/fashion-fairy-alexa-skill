@@ -14,7 +14,7 @@ module FashionFairy
           if location
             speak(%(
               <speak>
-                <audio src="#{ENV['HOST']}/audio/appear.mp3" />
+                <audio src="#{ENV['ASSET_HOST']}/audio/appear.mp3" />
                 #{greeting}
               </speak>
             ))
@@ -26,7 +26,7 @@ module FashionFairy
                   #{comment}
                   #{recommendation}
                   #{farewell}
-                  <audio src="#{ENV['HOST']}/audio/dissapear.mp3" />
+                  <audio src="#{ENV['ASSET_HOST']}/audio/dissapear.mp3" />
                 </speak>
               )
             )

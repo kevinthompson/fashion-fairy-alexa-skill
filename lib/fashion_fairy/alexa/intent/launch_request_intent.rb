@@ -9,7 +9,7 @@ module FashionFairy
           FashionFairy::Alexa::Response.new(
             text: %(
               <speak>
-                <audio src="#{ENV['HOST']}/audio/appear.mp3" />
+                <audio src="#{ENV['ASSET_HOST']}/audio/appear.mp3" />
                 Hi, I'm the fashion fairy! How can I help you today?
               </speak>
             ),
