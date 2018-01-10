@@ -8,16 +8,15 @@ module FashionFairy
 
     attr_reader :zip_code, :latitude, :longitude, :city, :state, :county
 
+    @@data = CSV.read(File.expand_path(DATA_PATH, File.dirname(__FILE__)), headers: true)
+    @@states = CSV.read(File.expand_path(STATES_PATH, File.dirname(__FILE__)), headers: true)
+
     def self.data
-      @data ||= begin
-        CSV.read(File.expand_path(DATA_PATH, File.dirname(__FILE__)), headers: true)
-      end
+      @@data
     end
 
     def self.states
-      @states ||= begin
-        CSV.read(File.expand_path(STATES_PATH, File.dirname(__FILE__)), headers: true)
-      end
+      @@states
     end
 
     def self.from_zip_code(zip_code)
