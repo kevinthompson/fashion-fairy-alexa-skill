@@ -18,11 +18,11 @@ module FashionFairy
     end
 
     def temperature
-      weather.forecast.condition.temp
+      weather.condition.temp
     end
 
     def description
-      weather.forecast.condition.text
+      weather.condition.text
     end
 
     def to_s
