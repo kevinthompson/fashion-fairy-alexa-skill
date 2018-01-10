@@ -77,7 +77,9 @@ module FashionFairy
       end
 
       def valid?
-        AlexaVerifier.valid!(request) && application_id == ENV['ALEXA_SKILL_ID']
+        ENV['RACK_ENV'] == 'development' ||
+          AlexaVerifier.valid!(request) &&
+          application_id == ENV['ALEXA_SKILL_ID']
       end
 
       private
