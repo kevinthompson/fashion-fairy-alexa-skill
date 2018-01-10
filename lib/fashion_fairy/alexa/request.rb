@@ -24,9 +24,7 @@ module FashionFairy
       def response
         if permission_granted?
           if location_available?
-            scoped_to_time_zone(location.time_zone) do
-              intent.response
-            end
+            intent.response
           else
             FashionFairy::Alexa::Response.new(
               text: %(
@@ -139,14 +137,6 @@ module FashionFairy
         intent_class_name = intent_name[/\w+$/]
         intent_class_name << 'Intent' unless intent_class_name[/Intent$/]
         FashionFairy::Alexa::Intent.find(intent_class_name)
-      end
-
-      def scoped_to_time_zone(time_zone, &block)
-        previous_time_zone = Time.zone
-        Time.zone = location.time_zone
-        yield.tap do
-          Time.zone = previous_time_zone
-        end
       end
     end
   end
