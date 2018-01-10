@@ -1,6 +1,5 @@
 require 'json'
-require_relative 'weather'
-require_relative 'forecast/period'
+require 'weather-api'
 
 module FashionFairy
   class Forecast
@@ -10,22 +9,27 @@ module FashionFairy
       @location = location
     end
 
-    def current
-      @current ||= hours.first
+    def city
+      weather.location.city
     end
 
-    def upcoming
-      @upcoming ||= max_offset_hour || current
+    def state
+      weather.location.region
+    end
+
+    def temperature
+      weather.forecast.condition.temp
+    end
+
+    def description
+      weather.forecast.condition.text
     end
 
     def to_s
       %(
-        Right now in #{location.city}, #{location.state} it's
-        #{current.temperature} degrees and #{current.description}.
-        #{upcoming == current ? nil : %(
-          Later it's going to be #{upcoming.temperature} degrees
-          and #{upcoming.description}.
-        )}
+        In #{city}, #{state} it's
+        #{temperature} degrees and
+        #{description}.
       )
     end
 
@@ -33,26 +37,11 @@ module FashionFairy
 
     attr_reader :data
 
-    def max_offset_hour
-      daytime_hours.max_by do |hour|
-        (current.temperature - hour.temperature).abs
-      end
-    end
-
-    def daytime_hours
-      now = Time.now
-      limit = Time.new(now.year, now.month, now.day, 20)
-      hours.select { |hour| hour.starts_at < limit }
-    end
-
-    def hours
-      @hours ||= weather.hourly.dig('properties', 'periods').map do |period|
-        FashionFairy::Forecast::Period.new(data: period)
-      end
-    end
-
     def weather
-      @weather ||= FashionFairy::Weather.new(location: location)
+      @weather ||= Weather.lookup_by_location(
+        location,
+        Weather::Units::FAHRENHEIT
+      )
     end
   end
 end

@@ -5,7 +5,7 @@ module FashionFairy
     end
 
     def to_s
-      case forecast.upcoming.temperature
+      case forecast.temperature
       when -Float::INFINITY..49
         %(Wow. That's <say-as interpret-as="interjection">freezing</say-as> cold!)
       when 50..59
@@ -13,7 +13,7 @@ module FashionFairy
       when 60..68
         %(That sounds a little chilly!)
       when 69..74
-        if forecast.upcoming.description[/Sunny/]
+        if forecast.description[/sunny/i]
           %(Sounds like a <say-as interpret-as="interjection">beautiful</say-as> day!)
         else
           %(It should feel pretty nice out)

@@ -1,9 +1,5 @@
 module FashionFairy
   class Farewell
-    def initialize(forecast:)
-      @forecast = forecast
-    end
-
     def to_s
       farewells.sample
     end
@@ -17,7 +13,5 @@ module FashionFairy
         %(Fashion Fairy out!),
       ]
     end
-
-    attr_reader :forecast
   end
 end
