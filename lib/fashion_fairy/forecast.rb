@@ -39,7 +39,7 @@ module FashionFairy
 
     def weather
       @weather ||= Weather.lookup_by_location(
-        location,
+        location.zip_code,
         Weather::Units::FAHRENHEIT
       )
     end
