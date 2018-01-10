@@ -47,11 +47,11 @@ module FashionFairy
         end
 
         def farewell
-          FashionFairy::Farewell.new(forecast: forecast)
+          FashionFairy::Farewell.new
         end
 
         def greeting
-          FashionFairy::Greeting.new(forecast: forecast)
+          FashionFairy::Greeting.new
         end
 
         def recommendation
