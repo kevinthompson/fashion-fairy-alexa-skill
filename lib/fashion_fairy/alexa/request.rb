@@ -10,8 +10,6 @@ Dir.glob(File.expand_path('intent/*', File.dirname(__FILE__))) { |file| require 
 module FashionFairy
   module Alexa
     class Request
-      include
-
       INTENT_REQUEST_TYPE = 'IntentRequest'.freeze
       SLOT_SUCCESS_MATCH = 'ER_SUCCESS_MATCH'.freeze
 
