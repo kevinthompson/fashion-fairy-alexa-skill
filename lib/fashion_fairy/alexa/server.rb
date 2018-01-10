@@ -1,3 +1,4 @@
+require 'newrelic_rpm'
 require 'pry'
 require 'sinatra/base'
 require 'uri'

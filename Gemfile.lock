@@ -19,6 +19,7 @@ GEM
     minitest (5.10.3)
     multi_xml (0.6.0)
     mustermann (1.0.1)
+    newrelic_rpm (4.7.1.340)
     pry (0.11.3)
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
@@ -45,6 +46,7 @@ DEPENDENCIES
   colorize
   dotenv
   httparty
+  newrelic_rpm
   pry
   puma
   sinatra
