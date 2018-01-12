@@ -17,19 +17,36 @@ module FashionFairy
       weather.location.region
     end
 
-    def temperature
-      weather.condition.temp
+    def current
+      weather.condition
     end
 
-    def description
-      weather.condition.text
+    def today
+      weather.forecasts.first
+    end
+
+    def temp
+      current.temp
+    end
+
+    def low
+      today.low
+    end
+
+    def high
+      today.high
+    end
+
+    def text
+      today.text
     end
 
     def to_s
       %(
-        In #{city}, #{state} it's
-        #{temperature} degrees and
-        #{description}.
+        Right now in #{city}
+        it's #{current.temp} degrees with #{current.text}
+        today's forecast is #{today.text}
+        with a high of #{today.high} degrees and a low of #{today.low} degrees
       )
     end
 

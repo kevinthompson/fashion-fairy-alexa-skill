@@ -4,10 +4,10 @@ module FashionFairy
   class Recommendation
     class Outer < Article
       def to_s
-        if forecast.description[/rain/i]
+        if forecast.text[/rain/i]
           'a jacket'
         else
-          case forecast.temperature
+          case forecast.low
           when -Float::INFINITY..60
             'a warm coat'
           when 61..68

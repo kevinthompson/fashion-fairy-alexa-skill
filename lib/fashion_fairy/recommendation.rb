@@ -11,7 +11,7 @@ module FashionFairy
 
     def to_s
       %(
-        I think you should wear #{temperate} clothes,
+        I think you should wear #{clothing_type} clothes,
         like #{articles.to_sentence}.
       )
     end
@@ -20,12 +20,16 @@ module FashionFairy
 
     attr_reader :forecast
 
-    def temperate
-      case forecast.temperature
-      when -Float::INFINITY..74
-        'warm'
-      when 75..Float::INFINITY
-        'cool'
+    def clothing_type
+      if (forecast.temp - forecast.high).abs >= 20
+        'layers of'
+      else
+        case forecast.high
+        when -Float::INFINITY..74
+          'warm'
+        when 75..Float::INFINITY
+          'cool'
+        end
       end
     end
 

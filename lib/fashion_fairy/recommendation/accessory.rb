@@ -4,10 +4,10 @@ module FashionFairy
   class Recommendation
     class Accessory < Article
       def to_s
-        if forecast.description[/rain/i]
+        if forecast.text[/rain/i]
           'an umbrella'
         else
-          case forecast.temperature
+          case forecast.low
           when -Float::INFINITY..65
             'a warm hat'
           when 66..Float::INFINITY
