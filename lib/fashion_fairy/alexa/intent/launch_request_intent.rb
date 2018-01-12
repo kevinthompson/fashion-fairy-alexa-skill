@@ -24,7 +24,7 @@ module FashionFairy
             %(How can I help you today?)
           else
             %(
-              Before I can make an outfit recommendation, you'll need to give me permission
+              Before I can recommend an outfit, you'll need to give me permission
               to see your zip code in the Alexa app.
             )
           end
