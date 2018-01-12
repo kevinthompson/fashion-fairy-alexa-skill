@@ -16,7 +16,7 @@ module FashionFairy
         if forecast.text[/sunny/i]
           %(Sounds like a <say-as interpret-as="interjection">beautiful</say-as> day!)
         else
-          %(It should feel pretty nice out)
+          %(It should feel pretty nice out.)
         end
       when 74..80
         %(That's going to be a bit warm.)

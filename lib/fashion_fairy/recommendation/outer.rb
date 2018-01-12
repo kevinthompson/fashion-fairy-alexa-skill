@@ -9,7 +9,7 @@ module FashionFairy
         else
           case forecast.temp
           when -Float::INFINITY..60
-            'a warm coat'
+            'a warm jacket'
           when 61..68
             'a jacket'
           when 69..Float::INFINITY
