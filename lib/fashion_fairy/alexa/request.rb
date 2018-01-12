@@ -2,7 +2,6 @@ require 'active_support/all'
 require 'alexa_verifier'
 require 'httparty'
 require 'json'
-require_relative 'card/ask_for_permissions_consent_card'
 require_relative 'client'
 require_relative 'intent'
 require_relative '../location'
@@ -28,19 +27,6 @@ module FashionFairy
 
       def permission_granted?
         zip_code.present?
-      end
-
-      def permission_required_response
-        FashionFairy::Alexa::Response.new(
-          text: %(
-            #{audio('appear.mp3')}
-            Hi, I'm the fashion fairy.
-            Before I can make a recommendation, you'll need to give me permission
-            to see your zip code in the Alexa app.
-            #{audio('dissappear.mp3')}
-          ),
-          card: FashionFairy::Alexa::Card::AskForPermissionsConsentCard.new
-        )
       end
 
       def location

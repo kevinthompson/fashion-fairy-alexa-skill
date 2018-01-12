@@ -1,11 +1,12 @@
 require_relative 'date_range'
+require_relative 'card/ask_for_permissions_consent_card'
 
 module FashionFairy
   module Alexa
     class Intent
       attr_reader :request
 
-      delegate :api, :location, :permission_granted?, :permission_required_response, to: :request
+      delegate :api, :location, :permission_granted?, to: :request
 
       class << self
         def find(name)
@@ -24,6 +25,19 @@ module FashionFairy
       end
 
       private
+
+      def permission_required_response
+        FashionFairy::Alexa::Response.new(
+          text: %(
+            #{audio('appear.mp3')}
+            Hi, I'm the fashion fairy.
+            Before I can make a recommendation, you'll need to give me permission
+            to see your zip code in the Alexa app.
+            #{audio('dissappear.mp3')}
+          ),
+          card: FashionFairy::Alexa::Card::AskForPermissionsConsentCard.new
+        )
+      end
 
       def audio(filename)
         %(<audio src="#{ENV['ASSET_HOST']}/audio/#{filename}" />)
