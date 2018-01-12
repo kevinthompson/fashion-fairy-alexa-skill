@@ -12,25 +12,10 @@ module FashionFairy
 
     def greetings
       [
-        %(
-            <say-as interpret-as="interjection">All righty!</say-as>
-            Let's figure out your outfit.
-        ),
-        %(
-          <prosody pitch="high">
-            Abracadabra, make an outfit appear!
-          </prosody>
-        ),
-        %(
-          <prosody pitch="high">
-            Hello sunshine! Let's put a sparkle in your step!
-          </prosody>
-        ),
-        %(
-          <prosody pitch="high">
-            I'm warming up my magic wand! Let's see what we can come up with!
-          </prosody>
-        ),
+        %(All righty! Let's figure out your outfit.),
+        %(Abracadabra, make an outfit appear!),
+        %(Hello sunshine! Let's put a sparkle in your step!),
+        %(I'm warming up my magic wand! Let's see what we can come up with!),
       ]
     end
   end
