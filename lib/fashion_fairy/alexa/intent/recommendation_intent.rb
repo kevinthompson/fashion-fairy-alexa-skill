@@ -25,14 +25,10 @@ module FashionFairy
         private
 
         def recommendation_response
-          speak(%(
-            #{audio('appear.mp3')}
-            #{greeting}
-            <break strength="strong"/>
-          ))
-
           FashionFairy::Alexa::Response.new(
             text: %(
+              #{audio('appear.mp3')}
+              #{greeting}
               #{forecast}
               #{comment}
               #{recommendation}
