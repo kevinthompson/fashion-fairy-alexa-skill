@@ -1,4 +1,5 @@
 require 'csv'
+require 'json'
 require 'httparty'
 
 module FashionFairy
@@ -6,7 +7,7 @@ module FashionFairy
     DATA_PATH = '../../data/zip_codes_states.csv'.freeze
     STATES_PATH = '../../data/states.csv'.freeze
 
-    attr_reader :zip_code, :latitude, :longitude, :city, :state, :county
+    attr_reader :zip_code, :latitude, :longitude, :city, :county
 
     @@data = CSV.read(File.expand_path(DATA_PATH, File.dirname(__FILE__)), headers: true)
     @@states = CSV.read(File.expand_path(STATES_PATH, File.dirname(__FILE__)), headers: true)
@@ -20,6 +21,7 @@ module FashionFairy
     end
 
     def self.from_zip_code(zip_code)
+      return nil if zip_code.nil?
       row = data.find { |r| r['zip_code'] == zip_code.to_s.rjust(5, '0')[0...5] }
       new(row) if row
     end
@@ -61,10 +63,20 @@ module FashionFairy
       end
     end
 
+    def self.from_ip_address(ip)
+      response = HTTParty.get("http://freegeoip.net/json/#{ip}")
+      attributes = JSON.parse(response.body)
+      new(attributes)
+    end
+
     def initialize(attributes)
       attributes.each do |key, value|
         instance_variable_set("@#{key}", value)
       end
+    end
+
+    def state
+      @state || @region_code
     end
   end
 end

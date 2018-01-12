@@ -10,7 +10,9 @@ module FashionFairy
             text: %(
               <speak>
                 <audio src="#{ENV['ASSET_HOST']}/audio/appear.mp3" />
-                Hi, I'm the fashion fairy! How can I help you today?
+                <prosody pitch="high">
+                  Hi, I'm the fashion fairy! How can I help you today?
+                </prosody>
               </speak>
             ),
             should_end_session: false

@@ -11,33 +11,24 @@ module FashionFairy
     class Intent
       class RecommendationIntent < Intent
         def response
-          if location
-            speak(%(
-              <speak>
-                <audio src="#{ENV['ASSET_HOST']}/audio/appear.mp3" />
-                #{greeting}
-              </speak>
-            ))
+          speak(%(
+            <speak>
+              <audio src="#{ENV['ASSET_HOST']}/audio/appear.mp3" />
+              #{greeting}
+            </speak>
+          ))
 
-            FashionFairy::Alexa::Response.new(
-              text: %(
-                <speak>
-                  #{forecast}
-                  #{comment}
-                  #{recommendation}
-                  #{farewell}
-                  <audio src="#{ENV['ASSET_HOST']}/audio/dissapear.mp3" />
-                </speak>
-              )
+          FashionFairy::Alexa::Response.new(
+            text: %(
+              <speak>
+                #{forecast}
+                #{comment}
+                #{recommendation}
+                #{farewell}
+                <audio src="#{ENV['ASSET_HOST']}/audio/dissapear.mp3" />
+              </speak>
             )
-          else
-            FashionFairy::Alexa::Response.new(
-              text: %(
-                Sorry, I'm not sure what location you're looking for, but I'm
-                sure you'll look nice in anything.
-              )
-            )
-          end
+          )
         end
 
         private

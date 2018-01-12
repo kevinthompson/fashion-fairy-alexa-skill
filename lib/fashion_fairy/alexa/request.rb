@@ -1,5 +1,6 @@
 require 'active_support/all'
 require 'alexa_verifier'
+require 'httparty'
 require 'json'
 require_relative 'card/ask_for_permissions_consent_card'
 require_relative 'client'
@@ -22,31 +23,23 @@ module FashionFairy
       end
 
       def response
-        if permission_granted?
-          if location_available?
-            intent.response
-          else
-            FashionFairy::Alexa::Response.new(
-              text: %(
-                I'm sorry, but I can't seem to figure out where you're at.
-                If you try again in a little bit I might be able to find you.
-              )
-            )
-          end
+        if location.present?
+          intent.response
         else
           FashionFairy::Alexa::Response.new(
             text: %(
-              Before I can find your zip code, you'll need to grant me
-              permission in your Alexa app.
-            ),
-            card: FashionFairy::Alexa::Card::AskForPermissionsConsentCard.new
+              I'm sorry, but I can't seem to figure out where you're at.
+              If you try again in a little bit I might be able to find you.
+            )
           )
         end
       end
 
       def location
-        FashionFairy::Location.from_zip_code(zip_code) ||
-          FashionFairy::Location.from_zip_code(98109)
+        @location ||= begin
+          FashionFairy::Location.from_zip_code(zip_code) ||
+            FashionFairy::Location.from_ip_address(request.ip)
+        end
       end
 
       def session(key)
@@ -80,18 +73,6 @@ module FashionFairy
 
       private
 
-      def permission_granted?
-        endpoint && access_token && zip_code
-      rescue
-        false
-      end
-
-      def location_available?
-        location.present?
-      rescue
-        false
-      end
-
       attr_reader :request
 
       def data
@@ -109,7 +90,11 @@ module FashionFairy
       def zip_code
         @zip_code ||= begin
           response = api.get("/v1/devices/#{device_id}/settings/address/countryAndPostalCode")
-          response.success? && JSON.parse(response.body)['postalCode']
+          if response.success?
+            JSON.parse(response.body)['postalCode']
+          else
+            nil
+          end
         end
       end
 
