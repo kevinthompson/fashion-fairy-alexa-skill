@@ -27,7 +27,7 @@ module FashionFairy
 
     def to_s
       %(
-        Right now in #{city} it's #{current.temp} degrees with #{current.text}.
+        Right now in #{city} it's #{current.temp} degrees and #{current.text}.
         Today's forecast is #{today.text} with a high of #{today.high} degrees
         and a low of #{today.low} degrees.
       )
