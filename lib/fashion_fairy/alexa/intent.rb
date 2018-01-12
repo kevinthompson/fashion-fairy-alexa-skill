@@ -1,5 +1,4 @@
 require_relative 'date_range'
-require_relative 'card/ask_for_permissions_consent_card'
 
 module FashionFairy
   module Alexa
@@ -34,8 +33,7 @@ module FashionFairy
             Before I can make a recommendation, you'll need to give me permission
             to see your zip code in the Alexa app.
             #{audio('dissappear.mp3')}
-          ),
-          card: FashionFairy::Alexa::Card::AskForPermissionsConsentCard.new
+          )
         )
       end
 
