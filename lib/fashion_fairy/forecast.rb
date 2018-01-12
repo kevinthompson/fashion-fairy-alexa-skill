@@ -9,22 +9,6 @@ module FashionFairy
       @location = location
     end
 
-    def city
-      weather.location.city
-    end
-
-    def state
-      weather.location.region
-    end
-
-    def current
-      weather.condition
-    end
-
-    def today
-      weather.forecasts.first
-    end
-
     def temp
       current.temp
     end
@@ -52,6 +36,22 @@ module FashionFairy
     private
 
     attr_reader :data
+
+    def city
+      weather.location.city
+    end
+
+    def state
+      weather.location.region
+    end
+
+    def current
+      weather.condition
+    end
+
+    def today
+      weather.forecasts.first
+    end
 
     def weather
       @weather ||= Weather.lookup_by_location(
