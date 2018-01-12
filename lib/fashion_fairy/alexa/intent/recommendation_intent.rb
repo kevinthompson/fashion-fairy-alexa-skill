@@ -11,27 +11,46 @@ module FashionFairy
     class Intent
       class RecommendationIntent < Intent
         def response
+          if permission_granted?
+            if location.present?
+              recommendation_response
+            else
+              unknown_location_response
+            end
+          else
+            permission_required_response
+          end
+        end
+
+        private
+
+        def recommendation_response
           speak(%(
-            <speak>
-              <audio src="#{ENV['ASSET_HOST']}/audio/appear.mp3" />
-              #{greeting}
-            </speak>
+            #{audio('appear.mp3')}
+            #{greeting}
           ))
 
           FashionFairy::Alexa::Response.new(
             text: %(
-              <speak>
-                #{forecast}
-                #{comment}
-                #{recommendation}
-                #{farewell}
-                <audio src="#{ENV['ASSET_HOST']}/audio/dissapear.mp3" />
-              </speak>
+              #{forecast}
+              #{comment}
+              #{recommendation}
+              #{farewell}
+              #{audio('dissappear.mp3')}
             )
           )
         end
 
-        private
+        def unknown_location_response
+          FashionFairy::Alexa::Response.new(
+            text: %(
+              #{audio('appear.mp3')}
+              Oh no. My magic isn't strong enough to find you right now.
+              If you try again in a little bit we might be able to figure out an outfit.
+              #{audio('dissappear.mp3')}
+            ),
+          )
+        end
 
         def comment
           FashionFairy::Comment.new(forecast: forecast)

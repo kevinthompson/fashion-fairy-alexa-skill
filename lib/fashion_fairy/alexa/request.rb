@@ -23,20 +23,24 @@ module FashionFairy
       end
 
       def response
-        if location.present?
-          intent.response
-        else
-          FashionFairy::Alexa::Response.new(
-            text: %(
-              <audio src="#{ENV['ASSET_HOST']}/audio/appear.mp3" />
-              Hi, I'm the fashion fairy.
-              Before I can make a recommendation, you'll need to give me permission
-              to see your zip code in the Alexa app.
-              <audio src="#{ENV['ASSET_HOST']}/audio/dissapear.mp3" />
-            ),
-            card: FashionFairy::Alexa::Card::AskForPermissionsConsentCard.new
-          )
-        end
+        intent.response
+      end
+
+      def permission_granted?
+        zip_code.present?
+      end
+
+      def permission_required_response
+        FashionFairy::Alexa::Response.new(
+          text: %(
+            #{audio('appear.mp3')}
+            Hi, I'm the fashion fairy.
+            Before I can make a recommendation, you'll need to give me permission
+            to see your zip code in the Alexa app.
+            #{audio('dissappear.mp3')}
+          ),
+          card: FashionFairy::Alexa::Card::AskForPermissionsConsentCard.new
+        )
       end
 
       def location

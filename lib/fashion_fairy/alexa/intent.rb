@@ -5,6 +5,8 @@ module FashionFairy
     class Intent
       attr_reader :request
 
+      delegate :api, :location, :permission_granted?, :permission_required_response, to: :request
+
       class << self
         def find(name)
           ObjectSpace.each_object(Class).find do |klass|
@@ -23,12 +25,8 @@ module FashionFairy
 
       private
 
-      def api
-        request.api
-      end
-
-      def location
-        request.location
+      def audio(filename)
+        %(<audio src="#{ENV['ASSET_HOST']}/audio/#{filename}" />)
       end
 
       def date_range
@@ -42,7 +40,11 @@ module FashionFairy
           },
           directive: {
             type: 'VoicePlayer.Speak',
-            speech: text
+            speech: %(
+              <speak>
+                #{text}
+              </speak>
+            ).squish
           }
         })
       end
