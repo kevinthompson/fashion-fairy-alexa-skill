@@ -1,7 +1,11 @@
 module FashionFairy
   class Farewell
     def to_s
-      farewells.sample
+      %(
+        <prosody pitch="high">
+          #{farewells.sample}
+        </prosody>
+      )
     end
 
     private
@@ -11,9 +15,8 @@ module FashionFairy
         %(Have a great day!),
         %(<say-as interpret-as="interjection">Deuces!</say-as>),
         %(Fashion Fairy out!),
-        %(Buh bye now!),
         %(Ta ta for now!),
-        %(Toodeloo!),
+        %(Have a fabulous day!),
       ]
     end
   end

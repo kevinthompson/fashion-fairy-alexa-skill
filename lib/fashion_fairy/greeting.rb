@@ -1,7 +1,11 @@
 module FashionFairy
   class Greeting
     def to_s
-      greetings.sample
+      %(
+        <prosody pitch="high">
+          #{greetings.sample}
+        </prosody>
+      )
     end
 
     private
@@ -9,20 +13,23 @@ module FashionFairy
     def greetings
       [
         %(
-          <say-as interpret-as="interjection">All righty!</say-as>
-          Let's figure out your outfit.
+            <say-as interpret-as="interjection">All righty!</say-as>
+            Let's figure out your outfit.
         ),
         %(
-          <say-as interpret-as="interjection">Abracadabra</say-as>,
-          make an outfit
-          <say-as interpret-as="interjection">appear!</say-as>
+          <prosody pitch="high">
+            Abracadabra, make an outfit appear!
+          </prosody>
         ),
         %(
-          <say-as interpret-as="interjection">Hello sunshine!</say-as>
-          Let's put a sparkle in your step!
+          <prosody pitch="high">
+            Hello sunshine! Let's put a sparkle in your step!
+          </prosody>
         ),
         %(
-          I'm warming up my magic wand! Let's see what we can come up with!
+          <prosody pitch="high">
+            I'm warming up my magic wand! Let's see what we can come up with!
+          </prosody>
         ),
       ]
     end
