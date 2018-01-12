@@ -7,7 +7,7 @@ module FashionFairy
         if forecast.text[/rain/i]
           'a jacket'
         else
-          case forecast.low
+          case forecast.temp
           when -Float::INFINITY..60
             'a warm coat'
           when 61..68
