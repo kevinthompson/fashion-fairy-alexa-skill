@@ -28,8 +28,10 @@ module FashionFairy
         else
           FashionFairy::Alexa::Response.new(
             text: %(
+              <audio src="#{ENV['ASSET_HOST']}/audio/appear.mp3" />
               Before I can make a recommendation, you'll need to give me permission
               to see your zip code in the Alexa app.
+              <audio src="#{ENV['ASSET_HOST']}/audio/dissapear.mp3" />
             ),
           )
         end
