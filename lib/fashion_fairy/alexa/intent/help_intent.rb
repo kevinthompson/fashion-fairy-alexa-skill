@@ -24,7 +24,7 @@ module FashionFairy
             %(all you have to do is say, "what should I wear?")
           else
             %(
-              but before I can make a recommendation, you'll need to give me permission
+              but before I can recommend an outfit, you'll need to give me permission
               to see your zip code in the Alexa app.
             )
           end
