@@ -36,7 +36,7 @@ module FashionFairy
               #{comment}
               #{recommendation}
               #{farewell}
-              #{audio('dissappear.mp3')}
+              #{audio('disappear.mp3')}
             )
           )
         end
@@ -47,7 +47,7 @@ module FashionFairy
               #{audio('appear.mp3')}
               Oh no. My magic isn't strong enough to find you right now.
               If you try again in a little bit we might be able to figure out an outfit.
-              #{audio('dissappear.mp3')}
+              #{audio('disappear.mp3')}
             ),
           )
         end

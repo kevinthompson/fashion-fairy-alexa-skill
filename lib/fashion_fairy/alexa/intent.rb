@@ -32,7 +32,7 @@ module FashionFairy
             Hi, I'm the fashion fairy.
             Before I can make a recommendation, you'll need to give me permission
             to see your zip code in the Alexa app.
-            #{audio('dissappear.mp3')}
+            #{audio('disappear.mp3')}
           )
         )
       end

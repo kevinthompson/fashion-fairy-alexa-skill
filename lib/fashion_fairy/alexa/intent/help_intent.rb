@@ -11,7 +11,7 @@ module FashionFairy
               #{audio('appear.mp3')}
               I can help you pick what to wear today,
               #{permission_dependent_phrase}
-              #{audio('dissappear.mp3')}
+              #{audio('disappear.mp3')}
             ),
             should_end_session: should_end_session
           )
