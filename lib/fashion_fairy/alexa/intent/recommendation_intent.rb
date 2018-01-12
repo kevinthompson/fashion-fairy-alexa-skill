@@ -28,6 +28,7 @@ module FashionFairy
           speak(%(
             #{audio('appear.mp3')}
             #{greeting}
+            <break strength="strong"/>
           ))
 
           FashionFairy::Alexa::Response.new(
