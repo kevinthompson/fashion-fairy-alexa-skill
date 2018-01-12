@@ -33,6 +33,7 @@ module FashionFairy
               to see your zip code in the Alexa app.
               <audio src="#{ENV['ASSET_HOST']}/audio/dissapear.mp3" />
             ),
+            card: FashionFairy::Alexa::Card::AskForPermissionsConsentCard.new
           )
         end
       end
