@@ -1,11 +1,7 @@
 module FashionFairy
   class Farewell
     def to_s
-      %(
-        <prosody pitch="high">
-          #{farewells.sample}
-        </prosody>
-      )
+      farewells.sample
     end
 
     private

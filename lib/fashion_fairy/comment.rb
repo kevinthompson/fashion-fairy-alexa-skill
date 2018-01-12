@@ -5,16 +5,6 @@ module FashionFairy
     end
 
     def to_s
-      %(
-        <prosody pitch="high">
-          #{forecast_comment}
-        </prosody>
-      )
-    end
-
-    private
-
-    def forecast_comment
       case forecast.temperature
       when -Float::INFINITY..49
         %(Wow. That's <say-as interpret-as="interjection">freezing</say-as> cold!)

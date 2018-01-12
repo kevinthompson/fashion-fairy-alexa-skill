@@ -27,11 +27,9 @@ module FashionFairy
 
     def to_s
       %(
-        <prosody pitch="high">
-          In #{city}, #{state} it's
-          #{temperature} degrees and
-          #{description}.
-        </prosody>
+        In #{city}, #{state} it's
+        #{temperature} degrees and
+        #{description}.
       )
     end
 

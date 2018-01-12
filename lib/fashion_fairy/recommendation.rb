@@ -11,10 +11,8 @@ module FashionFairy
 
     def to_s
       %(
-        <prosody pitch="high">
-          I think you should wear #{temperate} clothes,
-          like #{articles.to_sentence}.
-        </prosody>
+        I think you should wear #{temperate} clothes,
+        like #{articles.to_sentence}.
       )
     end
 

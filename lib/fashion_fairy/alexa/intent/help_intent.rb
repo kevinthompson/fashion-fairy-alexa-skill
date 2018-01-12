@@ -8,10 +8,8 @@ module FashionFairy
         def response
           FashionFairy::Alexa::Response.new(
             text: %(
-              <prosody pitch="high">
-                I can help you pick what to wear today. o
-                All you have to do is say, "what should I wear"!
-              </prosody>
+              I can help you pick what to wear today. o
+              All you have to do is say, "what should I wear"!
             ),
             should_end_session: false
           )

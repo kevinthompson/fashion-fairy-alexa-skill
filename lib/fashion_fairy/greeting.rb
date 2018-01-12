@@ -1,11 +1,7 @@
 module FashionFairy
   class Greeting
     def to_s
-      %(
-        <prosody pitch="high">
-          #{greetings.sample}
-        </prosody>
-      )
+      greetings.sample
     end
 
     private

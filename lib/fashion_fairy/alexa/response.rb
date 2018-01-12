@@ -43,13 +43,15 @@ module FashionFairy
 
       def output_speech
         {
-          text_type => text.squish,
-          type: text_type == :ssml ? 'SSML' : 'PlainText'
+          ssml: %(
+            <speak>
+              <prosody pitch="high">
+                #{text}
+              </prosody>
+            </speak>
+          ).squish,
+          type: 'SSML'
         }
-      end
-
-      def text_type
-        text[/[\<\>]+/] ? :ssml : :text
       end
     end
   end

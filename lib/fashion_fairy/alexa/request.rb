@@ -28,10 +28,8 @@ module FashionFairy
         else
           FashionFairy::Alexa::Response.new(
             text: %(
-              <prosody pitch="high">
-                Before I can make a recommendation, you'll need to give me permission
-                to see your zip code in the Alexa app.
-              </prosody>
+              Before I can make a recommendation, you'll need to give me permission
+              to see your zip code in the Alexa app.
             ),
           )
         end
