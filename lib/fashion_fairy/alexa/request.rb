@@ -28,18 +28,17 @@ module FashionFairy
         else
           FashionFairy::Alexa::Response.new(
             text: %(
-              I'm sorry, but I can't seem to figure out where you're at.
-              If you try again in a little bit I might be able to find you.
-            )
+              <prosody pitch="high">
+                Before I can make a recommendation, you'll need to give me permission
+                to see your zip code in the Alexa app.
+              </prosody>
+            ),
           )
         end
       end
 
       def location
-        @location ||= begin
-          FashionFairy::Location.from_zip_code(zip_code) ||
-            FashionFairy::Location.from_ip_address(request.ip)
-        end
+        @location ||= FashionFairy::Location.from_zip_code(zip_code)
       end
 
       def session(key)
