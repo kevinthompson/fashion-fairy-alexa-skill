@@ -54,7 +54,9 @@ module FashionFairy
             type: 'VoicePlayer.Speak',
             speech: %(
               <speak>
-                #{text}
+                <prosody pitch="high">
+                  #{text}
+                </prosody>
               </speak>
             ).squish
           }
