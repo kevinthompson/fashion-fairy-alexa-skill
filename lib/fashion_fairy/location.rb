@@ -78,5 +78,15 @@ module FashionFairy
     def state
       @state || @region_code
     end
+
+    def time_zone
+      @time_zone ||= begin
+        url = "https://maps.googleapis.com/maps/api/timezone/json"
+        url << "?location=#{latitude},#{longitude}"
+        url << "&timestamp=#{Time.now.to_i}"
+        url << "&key=#{ENV['GOOGLE_MAPS_API_KEY']}"
+        HTTParty.get(url).parsed_response['timeZoneId']
+      end
+    end
   end
 end

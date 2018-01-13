@@ -14,15 +14,24 @@ module FashionFairy
 
     def to_s
       %(
-        Right now in #{city} it's #{temp} degrees #{condition_term(code: code, current: true)} #{current.text}.
-        Later #{condition_term(code: code)} #{text == current.text ? 'more of the same' : text}
-        with a high of #{high} degrees.
+        Right now in #{city} it's #{temp} degrees
+        #{condition_term(code: code, current: true)} #{current.text}.
+        #{upcoming_forecast}
       )
     end
 
     private
 
     attr_reader :data
+
+    def upcoming_forecast
+      if Time.current.hour < 12
+        %(
+          Later #{condition_term(code: code)} #{text == current.text ? 'more of the same' : text}
+          with a high of #{high} degrees.
+        )
+      end
+    end
 
     def city
       weather.location.city
