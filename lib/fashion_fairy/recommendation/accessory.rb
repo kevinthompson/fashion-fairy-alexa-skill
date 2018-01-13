@@ -12,7 +12,9 @@ module FashionFairy
           when -Float::INFINITY..65
             'a warm hat'
           when 66..Float::INFINITY
-            nil
+            if forecast.text[/sunny/i]
+              'sunglasses'
+            end
           end
         end
       end
