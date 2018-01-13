@@ -4,7 +4,8 @@ module FashionFairy
   class Recommendation
     class Accessory < Article
       def to_s
-        if forecast.text[/rain/i]
+        case forecast.code
+        when 1..12, 35, 37..40, 45, 47
           'an umbrella'
         else
           case forecast.temp

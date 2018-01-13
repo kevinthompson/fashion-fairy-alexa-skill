@@ -1,35 +1,23 @@
 require 'json'
 require 'weather-api'
+require_relative 'condition'
 
 module FashionFairy
   class Forecast
     attr_reader :location
 
+    delegate :code, :high, :low, :text, to: :today
+    delegate :temp, to: :current
+
     def initialize(location:)
       @location = location
     end
 
-    def temp
-      current.temp
-    end
-
-    def low
-      today.low
-    end
-
-    def high
-      today.high
-    end
-
-    def text
-      today.text
-    end
-
     def to_s
       %(
-        Right now in #{city} it's #{current.temp} degrees and #{current.text}.
-        Later it's going to be #{today.text == current.text ? 'more of the same' : today.text}
-        with a high of #{today.high} degrees.
+        Right now in #{city} it's #{temp} degrees #{condition_term(code: code, current: true)} #{current.text}.
+        Later #{condition_term(code: code, current: true)} #{text == current.text ? 'more of the same' : text}
+        with a high of #{high} degrees.
       )
     end
 
@@ -39,10 +27,6 @@ module FashionFairy
 
     def city
       weather.location.city
-    end
-
-    def state
-      weather.location.region
     end
 
     def current
@@ -58,6 +42,29 @@ module FashionFairy
         location.zip_code,
         Weather::Units::FAHRENHEIT
       )
+    end
+
+    def condition_term(code:, current: false)
+      case code
+      when 0..2
+        if current
+          'with a'
+        else
+          %(there's going to be a)
+        end
+      when 20, 22..34, 36, 44
+        if current
+          'and'
+        else
+          %(it's going to be)
+        end
+      else
+        if current
+          'with'
+        else
+          %(there's going to be)
+        end
+      end
     end
   end
 end
