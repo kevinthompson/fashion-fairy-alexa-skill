@@ -13,7 +13,9 @@ module FashionFairy
         def response
           if permission_granted?
             if location.present?
-              recommendation_response
+              scoped_to_time_zone(location.time_zone) do
+                recommendation_response
+              end
             else
               unknown_location_response
             end

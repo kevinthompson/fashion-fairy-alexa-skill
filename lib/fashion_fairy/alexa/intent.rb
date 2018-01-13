@@ -25,6 +25,14 @@ module FashionFairy
 
       private
 
+      def scoped_to_time_zone(time_zone, &block)
+        previous_time_zone = Time.zone
+        Time.zone = location.time_zone
+        yield.tap do
+          Time.zone = previous_time_zone
+        end
+      end
+
       def permission_required_response
         FashionFairy::Alexa::Response.new(
           text: %(
