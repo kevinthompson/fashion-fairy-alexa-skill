@@ -12,7 +12,7 @@ module FashionFairy
           when -Float::INFINITY..60
             'a warm sweater'
           when 61..68
-            'a jacket'
+            'a light jacket'
           when 69..Float::INFINITY
             nil
           end
