@@ -13,6 +13,12 @@ module FashionFairy
         def response
           if permission_granted?
             if location.present?
+              speak(%(
+                #{audio('appear.mp3')}
+                #{greeting}
+                <break strength="strong"/>
+              ))
+
               scoped_to_time_zone(location.time_zone) do
                 recommendation_response
               end
@@ -29,8 +35,6 @@ module FashionFairy
         def recommendation_response
           FashionFairy::Alexa::Response.new(
             text: %(
-              #{audio('appear.mp3')}
-              #{greeting}
               #{forecast}
               #{comment}
               #{recommendation}
