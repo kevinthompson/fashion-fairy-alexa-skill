@@ -15,7 +15,7 @@ module FashionFairy
     def to_s
       %(
         Right now in #{city} it's #{temp} degrees #{condition_term(code: code, current: true)} #{current.text}.
-        Later #{condition_term(code: code, current: true)} #{text == current.text ? 'more of the same' : text}
+        Later #{condition_term(code: code)} #{text == current.text ? 'more of the same' : text}
         with a high of #{high} degrees.
       )
     end
