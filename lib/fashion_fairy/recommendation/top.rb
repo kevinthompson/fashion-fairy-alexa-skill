@@ -10,9 +10,9 @@ module FashionFairy
         when 61..74
           'a t-shirt'
         when 75..85
-          'a t-shirt or dress'
+          'a t-shirt, or a dress'
         when 86..Float::INFINITY
-          'a tank top or dress'
+          'a tank top, or a dress'
         end
       end
     end
