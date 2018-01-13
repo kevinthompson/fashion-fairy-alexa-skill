@@ -1,6 +1,5 @@
 require 'json'
 require 'weather-api'
-require_relative 'condition'
 
 module FashionFairy
   class Forecast
