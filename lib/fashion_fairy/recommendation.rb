@@ -11,8 +11,7 @@ module FashionFairy
 
     def to_s
       %(
-        I think you should wear #{clothing_type}
-        like #{articles.to_sentence}.
+        I think you should wear #{clothing_type} #{articles.to_sentence}.
       )
     end
 
@@ -22,9 +21,7 @@ module FashionFairy
 
     def clothing_type
       if (forecast.temp - forecast.high).abs >= 20
-        'layers of clothes,'
-      else
-        'something'
+        'layers of clothes, like'
       end
     end
 
