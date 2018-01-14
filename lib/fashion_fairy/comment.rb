@@ -19,7 +19,7 @@ module FashionFairy
           %(It should feel pretty nice out.)
         end
       when 74..80
-        %(That's going to be a bit warm.)
+        %(That's a bit warm.)
       when 81..Float::INFINITY
         %(Wow. That's <say-as interpret-as="interjection">pretty</say-as> hot.)
       else
