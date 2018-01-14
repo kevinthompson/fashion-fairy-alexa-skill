@@ -5,7 +5,7 @@ module FashionFairy
     end
 
     def to_s
-      case forecast.high
+      case temperature
       when -Float::INFINITY..49
         %(Wow. That's <say-as interpret-as="interjection">freezing</say-as> cold!)
       when 50..59
@@ -29,5 +29,13 @@ module FashionFairy
     private
 
     attr_reader :forecast
+
+    def temperature
+      if Time.current.hour < 12
+        forecast.high
+      else
+        forecast.temp
+      end
+    end
   end
 end
