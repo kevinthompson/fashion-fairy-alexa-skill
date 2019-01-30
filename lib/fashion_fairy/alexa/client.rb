@@ -23,13 +23,9 @@ module FashionFairy
       private
 
       def request(type, path, body)
-        print "#{endpoint}#{path}"
-        print headers.inspect
-        print body.to_json
-
         self.class.send(type, "#{endpoint}#{path}", {
           headers: headers,
-          body: body.to_json
+          body: body.present? ? body.to_json : nil
         })
       end
 
