@@ -46,6 +46,7 @@ module FashionFairy
 
         def unknown_location_response
           FashionFairy::Alexa::Response.new(
+            card: FashionFairy::Alexa::Card::AskForPermissionsConsentCard.new,
             text: %(
               #{begin_sound}
               Oh no. My magic isn't strong enough to find you right now.
