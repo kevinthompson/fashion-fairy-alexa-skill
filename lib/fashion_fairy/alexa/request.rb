@@ -81,8 +81,6 @@ module FashionFairy
       def zip_code
         @zip_code ||= begin
           response = api.get("/v1/devices/#{device_id}/settings/address/countryAndPostalCode")
-          print data.dig('context', 'System')
-          print response.inspect
           if response.success?
             JSON.parse(response.body)['postalCode']
           else
