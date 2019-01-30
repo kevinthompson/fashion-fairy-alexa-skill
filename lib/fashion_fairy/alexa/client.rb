@@ -25,7 +25,7 @@ module FashionFairy
       def request(type, path, body)
         self.class.send(type, "#{endpoint}#{path}", {
           headers: headers,
-          body: body.present? ? body.to_json : nil
+          body: body.nil? ? nil : body.to_json
         })
       end
 
