@@ -31,7 +31,7 @@ module FashionFairy
 
       def headers
         {
-          'Content-Type' => 'application/json',
+          'Accept' => 'application/json',
           'Authorization' => "Bearer #{access_token}"
         }
       end
