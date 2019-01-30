@@ -14,7 +14,7 @@ module FashionFairy
           if permission_granted?
             if location.present?
               speak(%(
-                #{audio('appear.mp3')}
+                #{begin_sound}
                 #{greeting}
                 <break strength="strong"/>
               ))
@@ -39,7 +39,7 @@ module FashionFairy
               #{comment}
               #{recommendation}
               #{farewell}
-              #{audio('disappear.mp3')}
+              #{end_sound}
             )
           )
         end
@@ -47,10 +47,10 @@ module FashionFairy
         def unknown_location_response
           FashionFairy::Alexa::Response.new(
             text: %(
-              #{audio('appear.mp3')}
+              #{begin_sound}
               Oh no. My magic isn't strong enough to find you right now.
               If you try again in a little bit we might be able to figure out an outfit.
-              #{audio('disappear.mp3')}
+              #{end_sound}
             ),
           )
         end

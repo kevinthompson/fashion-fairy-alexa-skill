@@ -36,13 +36,21 @@ module FashionFairy
       def permission_required_response
         FashionFairy::Alexa::Response.new(
           text: %(
-            #{audio('appear.mp3')}
+            #{begin_sound}
             Hi, I'm the fashion fairy.
             Before I can recommend an outfit, you'll need to give me permission
             to see your zip code in the Alexa app.
-            #{audio('disappear.mp3')}
+            #{end_sound}
           )
         )
+      end
+
+      def begin_sound
+        audio('appear.mp3')
+      end
+
+      def end_sound
+        audio('disappear.mp3')
       end
 
       def audio(filename)

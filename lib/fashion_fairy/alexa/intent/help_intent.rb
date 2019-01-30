@@ -8,10 +8,10 @@ module FashionFairy
         def response
           FashionFairy::Alexa::Response.new(
             text: %(
-              #{audio('appear.mp3')}
+              #{begin_sound}
               I can help you pick what to wear today,
               #{permission_dependent_phrase}
-              #{audio('disappear.mp3')}
+              #{end_sound}
             ),
             should_end_session: should_end_session
           )
